@@ -1,0 +1,15 @@
+Aim:
+1. look at my dataset and its features and meaning.
+2. read linux tips and tricks, how to organize your project(morning)
+3. find 5 paper about "2nd structure", "machine learning", "sklearn/svm","cas" or tutorial.
+4. learn emacs(evening if possible)
+
+Status:
+1. finish reading linux tips and tricks, how to organize your project
+2. Dataset:
+    	1.>sequence name
+	2.amino acid sequence
+	3.topology status(C:coiled coil, H:helix, E:sheet)
+  we can build dictionary to save name and other information.
+3. learning emacs.
+   Problem: 
