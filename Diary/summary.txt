@@ -1,0 +1,6 @@
+1. sliding window is important for prediction of 2nd structure, modify the dataset to get more feature
+2. cross validation: calculate accuracy then whole modle and accuracy.
+3. use matrix: Matthews correlation coeffient.
+4. manage your own dataset, learn the input of sklearn and svm.
+5. copy your dataset in 5 proteins to run test.
+
