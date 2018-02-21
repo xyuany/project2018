@@ -1,0 +1,22 @@
+2018-02-21
+
+Idea:
+1. pro seq->input->SVM->output->topology. 
+2. SVM is machine learning method only works on mathematics and number. SVM input prefer 	 b. 2D array = number of sample * features
+	c. protein 2nd structure is more complex. So we use SLIDING/FLANKING window.
+	d. one sample want to train is one silding window.
+	e. first and last animo acid will be lost when setting sliding window. We can just add place-holder like 0 animo acid
+	f. if window size is 5, then input feature list is 5*20 = 100. 
+3. We should encode protein seq and topology with number.
+4. sklearn python is machine learning package. 
+5. numpy and scipy can deal with number.
+6. check "machine leatrning" lab, it has encoded amino acid into number. We can find some ideas in it.
+7. We can have 20 digit binary seq to represent one amino acid.
+   "onehotencoder" can do it automatically. 
+   
+
+Aim: 
+1. find 5 paper (morning)
+2. read machine learning introduction.(afternoon)
+	https://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+	
