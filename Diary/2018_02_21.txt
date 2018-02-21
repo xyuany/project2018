@@ -20,3 +20,10 @@ Aim:
 2. read machine learning introduction.(afternoon)
 	https://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
 	
+Problem:
+1. when reading machine learning introduction, it mention sales,
+   should we scale our input?(I don't think so)
+
+Outcome:
+1. use grid searching by cross-validation, use for better kernel parameter.
+2. features are large, linear kernel and RBF are almost same.
