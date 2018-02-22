@@ -1,0 +1,15 @@
+Aim:
+1. READ Sklearn instructions and write output.(morning)
+   http://scikit-learn.org/stable/tutorial/basic/tutorial.html
+2. READ why one-hot encode data in machine learning.
+   https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/
+3. Read how to do machine learning by python if still have time.(morning)
+   https://machinelearningmastery.com/machine-learning-in-python-step-by-step/
+4. write project plan(afternoon)
+5. journal club preparation(evening)
+
+Outcome:
+1. totally don't understand. 
+2. convert attributes to 1D list, each attribute is an element.
+	each label corresponds to 1D list, and so instances with attributes are 2D matrix, which correspond to label list.
+
