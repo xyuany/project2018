@@ -1,0 +1,6 @@
+2018-02-26
+
+Outcome:
+1. cas1.3lines have 513 lines and 171 proteins.
+2. there are 1 same protein, just ignore them.
+
