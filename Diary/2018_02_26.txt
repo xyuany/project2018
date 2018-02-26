@@ -1,6 +1,24 @@
 2018-02-26
 
-Outcome:
+Idea:
 1. cas1.3lines have 513 lines and 171 proteins.
 2. there are 1 same protein, just ignore them.
-
+3. finish the input data structure:
+	each id is key of dictionary:
+	each topology and sequences can merge into a list
+	each value of key is the list
+	benifits: 1. avoid repete sequence.
+			  2. two lines can correspond to each other.
+	
+	Questions: 
+		1. how to make a[key] = [value1, value2]
+4. different encode and sliding window.
+	a. if we encode AA sequence into number first = n , when sliding windows applied, it will be repeated when binary import.
+	b. if we first apply sliding window, then encode into numbers will repeat and encode binary will repeat again.
+	c. encode into number then into binary, no repete, but diffcult when choose sliding window.
+Outcome: 
+	1. solve return two values/dictionaries.
+		seq dictionary and topo dictionary.
+		
+Aim: 
+	1. try to get unique aa(maybe not 20)
