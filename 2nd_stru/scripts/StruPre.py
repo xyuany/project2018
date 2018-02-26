@@ -46,24 +46,42 @@ def data_stru(inputfile):
 	
 def uniq_aa(seq_stru):
 	b = set()
+	seq_encode = dict()
+	# get unique amino acid
 	for key in seq_stru:
 		b.update(seq_stru[key])
 	b = list(b)
 	b.sort()
-	print (b)
+	#print (b)
+	encode = 0
+	# encode sorted amino acid into dictionary(number)
+	for i in b:
+		encode +=1
+		seq_encode[i] = encode
+	#print (seq_encode)
+	return (seq_encode)		
 
 def uniq_topo(topo_stru):
 	a = set()
+	topo_encode = dict()
+	# get unique topology state
 	for key in topo_stru:
 		a.update(topo_stru[key])
 	a = list(a)
 	a.sort()
-	print (a)
+	#print (a)
+	encode = 0
+	for i in a:
+		encode +=1
+		topo_encode[i] = encode
+	#print (topo_encode)
+	return (topo_encode)
 
 
 inputfile = sys.argv[1]
 
 seq, topo = data_stru(inputfile)
 
-uniq_aa(seq)
-uniq_topo(topo)
+seq_encode_table = uniq_aa(seq)
+topo_encode_table = uniq_topo(topo)
+print (len(seq_encode_table), len(topo_encode_table))
