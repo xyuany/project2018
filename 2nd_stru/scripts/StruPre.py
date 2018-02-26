@@ -77,11 +77,41 @@ def uniq_topo(topo_stru):
 	#print (topo_encode)
 	return (topo_encode)
 
+def seq_encoded(seq_dic,seq_table):
+	# iterate each sequence
+	for key in seq_dic:
+		#print (key,'\n',seq_dic[key])
+		seq_encoded = list()
+		# iterate each aa to encode into number
+		for i in seq_dic[key]:
+			seq_encoded.append(seq_table[i])
+		#print (seq_encoded)
+		# change value of seq_dic: string->list of encoded number
+		seq_dic[key] = seq_encoded
+		#print(seq_dic)
+	return seq_dic
+
+def topo_encoded(topo_dic,topo_table):
+	#iterate each sequence
+	for key in topo_dic:
+		#print (key,'\n',topo_dic[key])
+		topo_encoded = list()
+		for i in topo_dic[key]:
+			topo_encoded.append(topo_table[i])
+		#print (topo_encoded)
+		topo_dic[key] = topo_encoded
+		#print (topo_dic)
+	return topo_dic
+		
 
 inputfile = sys.argv[1]
-
+# build data structure: sequence, topology
 seq, topo = data_stru(inputfile)
 
+# build encode table
 seq_encode_table = uniq_aa(seq)
 topo_encode_table = uniq_topo(topo)
-print (len(seq_encode_table), len(topo_encode_table))
+
+# encode sequences into number
+seq_num = seq_encoded(seq,seq_encode_table)
+topo_num = topo_encoded(topo,topo_encode_table)
