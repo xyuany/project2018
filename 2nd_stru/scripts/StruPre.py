@@ -21,6 +21,9 @@ import getopt
 
 inputfile = getcommand(sys.argv[1:])
 print (inputfile)'''
+
+
+
 inputfile = sys.argv[1]
 #print (inputfile)
 
@@ -41,8 +44,26 @@ def data_stru(inputfile):
 			count == 0
 	return seq_stru,topo_stru
 	
-			
+def uniq_aa(seq_stru):
+	b = set()
+	for key in seq_stru:
+		b.update(seq_stru[key])
+	b = list(b)
+	b.sort()
+	print (b)
+
+def uniq_topo(topo_stru):
+	a = set()
+	for key in topo_stru:
+		a.update(topo_stru[key])
+	a = list(a)
+	a.sort()
+	print (a)
+
+
+inputfile = sys.argv[1]
 
 seq, topo = data_stru(inputfile)
-print (seq)
-print (topo)
+
+uniq_aa(seq)
+uniq_topo(topo)
