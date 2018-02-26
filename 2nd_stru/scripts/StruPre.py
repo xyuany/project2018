@@ -102,9 +102,34 @@ def topo_encoded(topo_dic,topo_table):
 		topo_dic[key] = topo_encoded
 		#print (topo_dic)
 	return topo_dic
-		
+
+def sliding_window(seq_dic, topo_dic, win_size):
+        X = list()
+        Y = list()
+        for key in topo_dic:
+                topo = topo_dic[key]
+                seq = seq_dic[key]
+                pos = win_size//2
+                print(seq)
+                for i in range(len(topo)):
+                        prefix = i - pos
+                        suffix = i + pos + 1 - len(topo)
+                        if prefix < 0:
+                                win = [0]*abs(prefix) + seq[i+pos-prefix-win_size+1:i+pos+1]
+                               # print (win)
+                        elif suffix >0:
+                                win = seq[i-pos:i+pos+1]+[0] * suffix
+                               # print (win)
+                        else:
+                                win = seq[i-pos:i+pos+1]
+                                #print (win)
+                        X.append(win)
+                print (X)
+
+
 
 inputfile = sys.argv[1]
+win_size = int(sys.argv[2])
 # build data structure: sequence, topology
 seq, topo = data_stru(inputfile)
 
@@ -115,3 +140,6 @@ topo_encode_table = uniq_topo(topo)
 # encode sequences into number
 seq_num = seq_encoded(seq,seq_encode_table)
 topo_num = topo_encoded(topo,topo_encode_table)
+
+# building sliding window 
+sliding_window(seq_num, topo_num, win_size)
