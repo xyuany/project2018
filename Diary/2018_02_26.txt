@@ -16,9 +16,21 @@ Idea:
 	a. if we encode AA sequence into number first = n , when sliding windows applied, it will be repeated when binary import.
 	b. if we first apply sliding window, then encode into numbers will repeat and encode binary will repeat again.
 	c. encode into number then into binary, no repete, but diffcult when choose sliding window.
+	
+	select a option
+	
+	
+	
+
+Aim: 
+	1. try to get unique aa(maybe not 20)
+	2. how to encode in number, like amino acid E->14, when window size 3, AEE->[1,14,14]
+	
 Outcome: 
 	1. solve return two values/dictionaries.
 		seq dictionary and topo dictionary.
+	2. solve unique aa and topo
+	3. one hot encode.
+		input: array. 
+		output: It can convert [1,14,14] into a 3*20 array ->[1,0,0,0,0,.......1,0,0,0,0]
 		
-Aim: 
-	1. try to get unique aa(maybe not 20)
