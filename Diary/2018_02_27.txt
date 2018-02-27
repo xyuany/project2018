@@ -1,0 +1,9 @@
+Aim:
+1. finish one-hot encode and primary training.
+2. paper reading
+
+
+
+Outcome:
+1. update input X and Y
+2. 
