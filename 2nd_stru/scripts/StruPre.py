@@ -24,8 +24,6 @@ print (inputfile)'''
 
 
 
-inputfile = sys.argv[1]
-#print (inputfile)
 
 def data_stru(inputfile):
 	inputhandle = open(inputfile, 'r')
@@ -140,6 +138,17 @@ def varify_length(seq,seq_num,topo,topo_num,X):
 	X_len = len(X)
 	print (X_len)
 
+def seq_binary_table(seq_table):
+	print (seq_table)
+	aa = seq_table.keys()
+	#aa.sort()
+	print (aa)
+
+
+
+
+
+
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
 # build data structure: sequence, topology
@@ -155,7 +164,9 @@ topo_num = topo_encoded(topo,topo_encode_table)
 
 # building sliding window 
 X,Y = sliding_window(seq_num, topo_num, win_size)
-print (X)
-print (Y)
-print (len(X),len(Y))
+X = np.array(X)
+Y = np.array(Y)
+# building one hot encode table
+seq_binary_table(seq_encode_table)
+#print (X,Y)
 #varify_length(seq,seq_num,topo,topo_num,X)
