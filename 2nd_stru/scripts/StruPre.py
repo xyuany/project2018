@@ -1,6 +1,7 @@
 import numpy as np
 import sys
 import getopt
+from sklearn import svm
 
 '''def getcommand(argv):
 	inputfile = ""
@@ -185,6 +186,12 @@ binary_table = seq_binary_table(seq_encode_table)
 # transform numerical number into 20 binary code
 X = onehotencode(seq_window, binary_table)
 X = np.array(X)
-print (X,type(X))
+
 #print (X,Y)
 #varify_length(seq,seq_num,topo,topo_num,X)
+clf = svm.SVC()
+clf.fit(X,Y)
+score = clf.score(X,Y)
+print (score)
+
+	
