@@ -139,15 +139,27 @@ def varify_length(seq,seq_num,topo,topo_num,X):
 	print (X_len)
 
 def seq_binary_table(seq_table):
-	print (seq_table)
-	aa = seq_table.keys()
-	#aa.sort()
-	print (aa)
+	binary = np.eye(20)
+	seq_binary_table = dict()
+	for i in range(20):
+		seq_binary_table[i+1] = list(binary[i])
+	seq_binary_table[0] = list(np.zeros((20)))
+	#print (seq_binary_table)
+	return seq_binary_table
 
-
-
-
-
+def onehotencode(seq_win, binary_table):
+	#print (len(X))
+	X = list()
+	for i in seq_win:
+		win_array = list()
+		for j in i:
+			array = binary_table[j]
+			win_array +=array
+			#print (len(win_array))
+		X.append(win_array)
+		#print (len(X[seq_win.index(i)]))
+	#print (len(X))
+	return X
 
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
@@ -163,10 +175,16 @@ seq_num = seq_encoded(seq,seq_encode_table)
 topo_num = topo_encoded(topo,topo_encode_table)
 
 # building sliding window 
-X,Y = sliding_window(seq_num, topo_num, win_size)
-X = np.array(X)
+seq_window,Y = sliding_window(seq_num, topo_num, win_size)
+#seq_window = np.array(X)
 Y = np.array(Y)
+
 # building one hot encode table
-seq_binary_table(seq_encode_table)
+binary_table = seq_binary_table(seq_encode_table)
+
+# transform numerical number into 20 binary code
+X = onehotencode(seq_window, binary_table)
+X = np.array(X)
+print (X,type(X))
 #print (X,Y)
 #varify_length(seq,seq_num,topo,topo_num,X)
