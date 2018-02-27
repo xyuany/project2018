@@ -104,29 +104,41 @@ def topo_encoded(topo_dic,topo_table):
 	return topo_dic
 
 def sliding_window(seq_dic, topo_dic, win_size):
-        X = list()
-        Y = list()
-        for key in topo_dic:
-                topo = topo_dic[key]
-                seq = seq_dic[key]
-                pos = win_size//2
-                print(seq)
-                for i in range(len(topo)):
-                        prefix = i - pos
-                        suffix = i + pos + 1 - len(topo)
-                        if prefix < 0:
-                                win = [0]*abs(prefix) + seq[i+pos-prefix-win_size+1:i+pos+1]
-                               # print (win)
-                        elif suffix >0:
-                                win = seq[i-pos:i+pos+1]+[0] * suffix
-                               # print (win)
-                        else:
-                                win = seq[i-pos:i+pos+1]
-                                #print (win)
-                        X.append(win)
-                print (X)
+	X = list()
+	Y = list()
+	for key in topo_dic:
+		topo = topo_dic[key]
+		seq = seq_dic[key]
+		pos = win_size//2
+		#print(seq)
+		for i in range(len(topo)):
+			prefix = i - pos
+			suffix = i + pos + 1 - len(topo)
+			if prefix < 0:
+				win = [0]*abs(prefix) + seq[i+pos-prefix-win_size+1:i+pos+1]
+				# print (win)
+			elif suffix >0:
+				win = seq[i-pos:i+pos+1]+[0] * suffix
+				# print (win)
+			else:
+				win = seq[i-pos:i+pos+1]
+				#print (win)
+			X.append(win)
+		#print (X)
+		Y += topo
+	#print (Y)
+	return X,Y
 
-
+def varify_length(seq,seq_num,topo,topo_num,X):
+	seq_len, seq_num_len, topo_len, topo_num_len,X_len = 0,0,0,0,0
+	for key in seq:
+		seq_len += len(seq[key])
+		seq_num_len += len(seq_num[key])
+		topo_len += len(topo[key])
+		topo_num_len += len(topo_num[key])
+		print (seq_len,seq_num_len,topo_len,topo_num_len)
+	X_len = len(X)
+	print (X_len)
 
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
@@ -142,4 +154,8 @@ seq_num = seq_encoded(seq,seq_encode_table)
 topo_num = topo_encoded(topo,topo_encode_table)
 
 # building sliding window 
-sliding_window(seq_num, topo_num, win_size)
+X,Y = sliding_window(seq_num, topo_num, win_size)
+print (X)
+print (Y)
+print (len(X),len(Y))
+#varify_length(seq,seq_num,topo,topo_num,X)
