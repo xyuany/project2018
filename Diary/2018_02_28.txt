@@ -2,6 +2,8 @@
 
 Aim:
 1. learn cross-validation and model saving.
+	Questions: 1. how to achieve cross-validation manually.
+			   2. how to automatically change model parameter and save accuracy.
 2. train different model and use cross-validation to get accuracy.
 3. reorganize to get efficient functions without changing a lot.
 4. figure out how to build accuracy output for convenient analysing.
@@ -20,3 +22,6 @@ Outcome:
 				 		3. input into our model
 				 		4. cross validation to get better results
 				 		
+2. For cross validation, we use same training set and testing set each time to evaluate model accurately.
+
+3. complish how to manually split training and testing set
