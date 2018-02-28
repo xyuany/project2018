@@ -64,13 +64,13 @@ def uniq_topo(topo_stru):
 	a = set()
 	topo_encode = dict()
 	# get unique topology state
-	for key in topo_stru:
+	'''for key in topo_stru:
 		a.update(topo_stru[key])
 	a = list(a)
 	a.sort()
-	#print (a)
+	#print (a)'''
 	encode = 0
-	for i in a:
+	for i in 'CEH':
 		encode +=1
 		topo_encode[i] = encode
 	#print (topo_encode)
@@ -201,5 +201,6 @@ print (score)
 '''
 if __name__ == '__main__':
 	X,Y = main(seq,topo,win_size)
-	print (X,Y)
+	#print (X)
+	#print (Y)
 	

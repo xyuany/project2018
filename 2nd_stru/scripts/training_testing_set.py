@@ -49,7 +49,7 @@ def list_dic(ID_list,all_dic):
 		ID_dict[i] = all_dic[i]
 	return ID_dict
 
-
+#if __name__ == '__main__':
 
 
 test_set = test_set(ID_list)
