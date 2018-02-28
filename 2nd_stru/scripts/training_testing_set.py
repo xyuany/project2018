@@ -37,11 +37,11 @@ def test_set(ID_list):
 
 def train_test_set(test_list,ID_list,seq_dic,topo_dic):
 	train_list = list (set(ID_list) - set(test_list))
-	tran_seq = list_dic(train_list,seq_dic)
-	tran_topo = list_dic(train_list,topo_dic)
+	train_seq = list_dic(train_list,seq_dic)
+	train_topo = list_dic(train_list,topo_dic)
 	test_seq = list_dic(test_list,seq_dic)
 	test_topo = list_dic(test_list,topo_dic)
-	print (test_seq)
+	return train_seq, train_topo, test_seq, test_topo
 	
 def list_dic(ID_list,all_dic):
 	ID_dict = dict()
