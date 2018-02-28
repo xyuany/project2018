@@ -47,14 +47,14 @@ def uniq_aa(seq_stru):
 	b = set()
 	seq_encode = dict()
 	# get unique amino acid
-	for key in seq_stru:
+	'''for key in seq_stru:
 		b.update(seq_stru[key])
 	b = list(b)
 	b.sort()
-	#print (b)
+	print (b)'''
 	encode = 0
 	# encode sorted amino acid into dictionary(number)
-	for i in b:
+	for i in 'ACDEFGHIKLMNPQRSTVWY':
 		encode +=1
 		seq_encode[i] = encode
 	#print (seq_encode)
@@ -105,12 +105,12 @@ def topo_encoded(topo_dic,topo_table):
 def sliding_window(seq_dic, topo_dic, win_size):
 	X = list()
 	Y = list()
-	for key in topo_dic:
+	for key in seq_dic:
 		topo = topo_dic[key]
 		seq = seq_dic[key]
 		pos = win_size//2
 		#print(seq)
-		for i in range(len(topo)):
+		for i in range(len(seq)):
 			prefix = i - pos
 			suffix = i + pos + 1 - len(topo)
 			if prefix < 0:
@@ -162,36 +162,38 @@ def onehotencode(seq_win, binary_table):
 	#print (len(X))
 	return X
 
+# main function
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
 # build data structure: sequence, topology
 seq, topo = data_stru(inputfile)
-
+#print (seq,topo)
 # build encode table
 seq_encode_table = uniq_aa(seq)
 topo_encode_table = uniq_topo(topo)
-
+#print (seq_encode_table,topo_encode_table)
 # encode sequences into number
 seq_num = seq_encoded(seq,seq_encode_table)
 topo_num = topo_encoded(topo,topo_encode_table)
-
+#print (seq_num,topo_num)
 # building sliding window 
 seq_window,Y = sliding_window(seq_num, topo_num, win_size)
 #seq_window = np.array(X)
 Y = np.array(Y)
-
+#print (seq_window,Y)
 # building one hot encode table
 binary_table = seq_binary_table(seq_encode_table)
-
+print (binary_table)
 # transform numerical number into 20 binary code
 X = onehotencode(seq_window, binary_table)
 X = np.array(X)
 
 #print (X,Y)
 #varify_length(seq,seq_num,topo,topo_num,X)
-clf = svm.SVC()
+'''clf = svm.SVC()
 clf.fit(X,Y)
 score = clf.score(X,Y)
 print (score)
-
+'''
+	
 	
