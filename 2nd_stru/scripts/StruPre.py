@@ -2,7 +2,7 @@ import numpy as np
 import sys
 import getopt
 from sklearn import svm
-
+np.set_printoptions(threshold = np.inf)
 '''def getcommand(argv):
 	inputfile = ""
 	outputfile = ""
@@ -162,31 +162,35 @@ def onehotencode(seq_win, binary_table):
 	#print (len(X))
 	return X
 
+
 # main function
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
 # build data structure: sequence, topology
 seq, topo = data_stru(inputfile)
 #print (seq,topo)
+
+def main(seq,topo,win_size):
 # build encode table
-seq_encode_table = uniq_aa(seq)
-topo_encode_table = uniq_topo(topo)
+	seq_encode_table = uniq_aa(seq)
+	topo_encode_table = uniq_topo(topo)
 #print (seq_encode_table,topo_encode_table)
 # encode sequences into number
-seq_num = seq_encoded(seq,seq_encode_table)
-topo_num = topo_encoded(topo,topo_encode_table)
+	seq_num = seq_encoded(seq,seq_encode_table)
+	topo_num = topo_encoded(topo,topo_encode_table)
 #print (seq_num,topo_num)
 # building sliding window 
-seq_window,Y = sliding_window(seq_num, topo_num, win_size)
+	seq_window,Y = sliding_window(seq_num, topo_num, win_size)
 #seq_window = np.array(X)
-Y = np.array(Y)
+	Y = np.array(Y)
 #print (seq_window,Y)
 # building one hot encode table
-binary_table = seq_binary_table(seq_encode_table)
-print (binary_table)
+	binary_table = seq_binary_table(seq_encode_table)
+#print (binary_table)
 # transform numerical number into 20 binary code
-X = onehotencode(seq_window, binary_table)
-X = np.array(X)
+	X = onehotencode(seq_window, binary_table)
+	X = np.array(X)
+	return X,Y
 
 #print (X,Y)
 #varify_length(seq,seq_num,topo,topo_num,X)
@@ -195,5 +199,7 @@ clf.fit(X,Y)
 score = clf.score(X,Y)
 print (score)
 '''
-	
+if __name__ == '__main__':
+	X,Y = main(seq,topo,win_size)
+	print (X,Y)
 	
