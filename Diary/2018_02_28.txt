@@ -24,4 +24,7 @@ Outcome:
 				 		
 2. For cross validation, we use same training set and testing set each time to evaluate model accurately.
 
-3. complish how to manually split training and testing set
+3. complish how to manually split training and testing set.
+
+Highlights:!!!! if we do training and testing set iteratively with cross-validation, it should be a very long time to encode it again and again.
+			!!! the best way to do it: save the encoded sliding window of 5 different parts as group1, group 2 and use it again and again!!! 
