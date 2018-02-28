@@ -1,0 +1,22 @@
+2018-02-28
+
+Aim:
+1. learn cross-validation and model saving.
+2. train different model and use cross-validation to get accuracy.
+3. reorganize to get efficient functions without changing a lot.
+4. figure out how to build accuracy output for convenient analysing.
+
+
+Outcome:
+1. The program is divided by user-interface and builder-interface
+	For user: only input sequence, and get result.
+			  File: 1. get input query
+			  		2. transform it into sliding window and onehotencoding.
+			  		3. load model and predict
+			  		4. get results(numerical) and results is transformed into topology information and write the file.
+	For builder: get best accuracy model and save it.
+				 File:  1. seperate traning set and testing set
+				 		2. get right format of training set and testing set
+				 		3. input into our model
+				 		4. cross validation to get better results
+				 		
