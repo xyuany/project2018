@@ -171,24 +171,26 @@ seq, topo = data_stru(inputfile)
 #print (seq,topo)
 
 def main(seq,topo,win_size):
-# build encode table
+' build numerical encode table'
 	seq_encode_table = uniq_aa(seq)
 	topo_encode_table = uniq_topo(topo)
 #print (seq_encode_table,topo_encode_table)
+'sorted the input ID '
 	ID_list = sorted(seq.keys())
-# encode sequences into number
+' encode sequences into number'
 	seq_num = seq_encoded(seq,seq_encode_table)
 	topo_num = topo_encoded(topo,topo_encode_table)
 #print (seq_num,topo_num)
-# building sliding window 
+''' building sliding window due to sorted ID_list
+	So the sequences order is same ''' 
 	seq_window,Y = sliding_window(ID_list, seq_num, topo_num, win_size)
 #seq_window = np.array(X)
 	Y = np.array(Y)
 #print (seq_window,Y)
-# building one hot encode table
+' building one hot encode table '
 	binary_table = seq_binary_table(seq_encode_table)
 #print (binary_table)
-# transform numerical number into 20 binary code
+' transform numerical number into 20 binary code'
 	X = onehotencode(seq_window, binary_table)
 	X = np.array(X)
 	return X,Y
