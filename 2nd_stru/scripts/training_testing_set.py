@@ -6,20 +6,21 @@ import StruPre as sp
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
 
-seq, topo = sp.data_stru(inputfile)
-length = len(seq)
-interval = length//5
+
 
 # build 5-fold cross validation 
 #print (length, interval)
 
-ID_list = sorted(seq.keys())
+#ID_list = sorted(seq.keys())
 
-print (ID_list)
+#print (ID_list)
 ''' get different testing ID of 5-fold cross validation'''
 
-
-def test_set(ID_list):
+###########################################################################
+##########This function is to seperate whole dataset into 5 parts
+###########Group[i] is test_set[i], and it has order
+###########################################################################
+def test_set(ID_list,interval):
 	test_set = list()
 	for i in range(5):
 		if i == 4:
@@ -31,17 +32,22 @@ def test_set(ID_list):
 	#print (test_set)
 	return test_set
 
-''' extract training and testing data from total data 
-	get results as dictionary
-	by test_set[list]''' 
+#############################################################################
+###########This function is to get seq_dictionary and topo_dictionary in each group
+############Use main() in 'StruPre.py' to convert into binary array and save in 'i.npz'
+############ main() will sort keys of input dictionary and return have fixed order
+##################################################################################
 
-def train_test_set(test_list,ID_list,seq_dic,topo_dic):
-	train_list = list (set(ID_list) - set(test_list))
-	train_seq = list_dic(train_list,seq_dic)
-	train_topo = list_dic(train_list,topo_dic)
-	test_seq = list_dic(test_list,seq_dic)
-	test_topo = list_dic(test_list,topo_dic)
-	return train_seq, train_topo, test_seq, test_topo
+
+def train_test_set(test_list,seq_dic,topo_dic,win_size):
+	#train_list = list (set(ID_list) - set(test_list))
+	#print (len(test_list))
+	for i in range(len(test_list)):
+		group_seq = list_dic(test_list[i],seq_dic)
+		group_topo = list_dic(test_list[i],topo_dic)
+		X,Y = sp.main(group_seq,group_topo,win_size)
+		np.savez("./logs/"+str(i+1),seq_data = X, topo_data = Y)
+		#print (X.shape,Y.shape)
 	
 def list_dic(ID_list,all_dic):
 	ID_dict = dict()
@@ -49,8 +55,16 @@ def list_dic(ID_list,all_dic):
 		ID_dict[i] = all_dic[i]
 	return ID_dict
 
-#if __name__ == '__main__':
+def main(inputfile,win_size):
+	seq, topo = sp.data_stru(inputfile)
+	length = len(seq)
+	interval = length//5
+	ID_list = sorted(seq.keys())
+	test_group = test_set(ID_list,interval)
+	train_test_set(test_group,seq,topo,win_size)	
 
 
-test_set = test_set(ID_list)
-train_test_set(test_set[0],ID_list,seq,topo)
+
+if __name__ == '__main__':
+	main(inputfile, win_size)
+#print (test_set)
