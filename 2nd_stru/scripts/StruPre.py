@@ -102,10 +102,10 @@ def topo_encoded(topo_dic,topo_table):
 		#print (topo_dic)
 	return topo_dic
 
-def sliding_window(seq_dic, topo_dic, win_size):
+def sliding_window(ID_list, seq_dic, topo_dic, win_size):
 	X = list()
 	Y = list()
-	for key in seq_dic:
+	for key in ID_list:
 		topo = topo_dic[key]
 		seq = seq_dic[key]
 		pos = win_size//2
@@ -175,12 +175,13 @@ def main(seq,topo,win_size):
 	seq_encode_table = uniq_aa(seq)
 	topo_encode_table = uniq_topo(topo)
 #print (seq_encode_table,topo_encode_table)
+	ID_list = sorted(seq.keys())
 # encode sequences into number
 	seq_num = seq_encoded(seq,seq_encode_table)
 	topo_num = topo_encoded(topo,topo_encode_table)
 #print (seq_num,topo_num)
 # building sliding window 
-	seq_window,Y = sliding_window(seq_num, topo_num, win_size)
+	seq_window,Y = sliding_window(ID_list, seq_num, topo_num, win_size)
 #seq_window = np.array(X)
 	Y = np.array(Y)
 #print (seq_window,Y)
