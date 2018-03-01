@@ -1,0 +1,12 @@
+2018-03-01
+
+Aim:
+1. compelete training set and testing set split
+2. try to do cross-validation
+3. input sequences
+4. paper presentation
+
+
+Outcome:
+1. finish the training set and testing set spliting.
+2. finish the cross-validation script
