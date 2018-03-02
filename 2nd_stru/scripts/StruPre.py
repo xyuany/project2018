@@ -3,7 +3,7 @@ import sys
 import getopt
 from sklearn import svm
 np.set_printoptions(threshold = np.inf)
-import pickle
+from sklearn.externals import joblib
 
 '''def getcommand(argv):
 	inputfile = ""
@@ -131,6 +131,41 @@ def sliding_window(ID_list, seq_dic, topo_dic, win_size):
 	#print (Y)
 	return X,Y
 
+def seq_sliding_window(ID_list, seq_dic, win_size):
+	X = list()
+	#Y = list()
+	for key in ID_list:
+		#topo = topo_dic[key]
+		seq = seq_dic[key]
+		pos = win_size//2
+		#print(seq)
+		for i in range(len(seq)):
+			prefix = i - pos
+			suffix = i + pos + 1 - len(seq)
+			if prefix < 0:
+				win = [0]*abs(prefix) + seq[i+pos-prefix-win_size+1:i+pos+1]
+				# print (win)
+			elif suffix >0:
+				win = seq[i-pos:i+pos+1]+[0] * suffix
+				# print (win)
+			else:
+				win = seq[i-pos:i+pos+1]
+				#print (win)
+			X.append(win)
+		#print (X)
+		#Y += topo
+	#print (Y)
+	return X
+
+
+def topo_sliding_window(ID_list,topo_dic):
+	Y = list()
+	for key in ID_list:
+		topo = topo_dic[key]
+		Y += topo
+	Y = np.array(Y)
+	return Y
+
 def varify_length(seq,seq_num,topo,topo_num,X):
 	seq_len, seq_num_len, topo_len, topo_num_len,X_len = 0,0,0,0,0
 	for key in seq:
@@ -167,12 +202,12 @@ def onehotencode(seq_win, binary_table):
 
 
 # main function
-'''inputfile = sys.argv[1]
+inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
 # build data structure: sequence, topology
 seq, topo = data_stru(inputfile)
 #print (seq,topo)
-'''
+
 def main(seq,topo,win_size):
 ######build numerical encode table'
 	seq_encode_table = uniq_aa(seq)
@@ -183,12 +218,15 @@ def main(seq,topo,win_size):
 #######encode sequences into number'
 	seq_num = seq_encoded(seq,seq_encode_table)
 	topo_num = topo_encoded(topo,topo_encode_table)
+
 #print (seq_num,topo_num)
 #####building sliding window due to sorted ID_list
-#####So the sequences order is same ''' 
-	seq_window,Y = sliding_window(ID_list, seq_num, topo_num, win_size)
+#####So the sequences order is same 
+	#seq_window,Y = sliding_window(ID_list, seq_num, topo_num, win_size)
+	seq_window = seq_sliding_window(ID_list, seq_num, win_size)
+	Y = topo_sliding_window(ID_list, topo_num)
 #seq_window = np.array(X)
-	Y = np.array(Y)
+	#Y = np.array(Y)
 #print (seq_window,Y)
 ######building one hot encode table '
 	binary_table = seq_binary_table(seq_encode_table)
@@ -198,6 +236,11 @@ def main(seq,topo,win_size):
 	X = np.array(X)
 	return X,Y
 
+def input_main(seq,win_size):
+	seq_encode_table = uniq_aa(seq)
+	ID_list = sorted(seq.keys())
+	seq_num = seq_encoded(seq,seq_encode_table)
+	seq_window = seq_sliding_window(ID_list, seq_num, win_size)
 #print (X,Y)
 #varify_length(seq,seq_num,topo,topo_num,X)
 '''clf = svm.SVC()
@@ -209,4 +252,7 @@ if __name__ == '__main__':
 	X,Y = main(seq,topo,win_size)
 	#print (X)
 	#print (Y)
+	'''clf = svm.SVC()
+	clf.fit(X,Y)
+	joblib.dump(clf,'./logs/model/test_model.sav')'''
 	
