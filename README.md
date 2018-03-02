@@ -22,7 +22,7 @@
  SVM input array
 # usage
 ## command
-* $ python input.py \<input sequence>\
+* $ python input.py \<input sequence>
 ## mandatary file
 * ./script/input.py<br>
 * ./script/PreStru.py<br>
