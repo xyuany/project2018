@@ -9,7 +9,12 @@ Aim:
 5. journal club preparation(evening)
 
 Outcome:
-1. totally don't understand. 
-2. convert attributes to 1D list, each attribute is an element.
-	each label corresponds to 1D list, and so instances with attributes are 2D matrix, which correspond to label list.
-
+1. a. totally don't understand. 
+   b. convert attributes to 1D list, each attribute is an element.
+   c. each label corresponds to 1D list, and so instances with attributes are 2D matrix, which correspond to label list.
+2. a. what is categorical data? -A decision tree can directly learned by categorical data
+   b. Machine learning needs input and output numeric
+   c. Two methods to encode categorical data: integer encoding and one-hot encoding
+      Integer encoding: label encoding. have ordered relationship
+      One-hot encoding: no ordinal relationship. binary variable is added for unique integer.
+3. a.

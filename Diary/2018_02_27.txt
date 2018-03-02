@@ -6,4 +6,6 @@ Aim:
 
 Outcome:
 1. update input X and Y
-2. 
+2. code encode table
+3. encode in 20 binary code
+4. SVM trying

@@ -1,0 +1,15 @@
+2018-03-02
+
+Aim:
+1. finish a program that can achieve input and output a query sequences.
+	Questions: 1. input format should be same as model.(same encoding ways, same window size). But my old code can only do with topology information(only for testing data). For input sequence only, I have to re-write every functions. 
+				2. how to save and load a model
+				3. convert predict format into human-read topology information
+				
+
+Outcome:
+1. To make my code more reusable. Sliding window part, I splite into two functions: seqence and topology. With the help of sorted ID_list, sequence and topology can corresponds to each other.
+	I verify it by running old code and new code with same input, write output in different files, and compare them. there is no difference between them. So re-writing is successful.
+	I found some shortages in my old code, by updating it. I randomly used seq varible and topo varible in one function, though lots of them have same value. That leads to bugs in my testing.
+
+2. run my whole dataset and save it 

@@ -12,4 +12,4 @@ Status:
 	3.topology status(C:coiled coil, H:helix, E:sheet)
   we can build dictionary to save name and other information.
 3. learning emacs.
-   Problem: 
+   Problem: selected area Ctrl+space and move to end of document

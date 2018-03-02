@@ -9,4 +9,5 @@ Aim:
 
 Outcome:
 1. finish the training set and testing set spliting.
-2. finish the cross-validation script
+2. finish the cross-validation script 
+3. finish the input script
