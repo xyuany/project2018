@@ -2,8 +2,8 @@
 3 state 2nd structure prediction
 
 # /2n_stru/ introduction
-* /input/ 
-*  /input.txt
+# /input/ 
+##  /input.txt
  contain a sequence to test<br>
 ## /script/
 ### ./input.py  
@@ -19,4 +19,11 @@
 ### ./model/  
  contain the model I have.<br>
 ### ./
-$ python input.py <input sequence>
+# usage
+## command
+* $ python input.py <input sequence>
+## mandatary file
+* ./script/input.py<br>
+* ./script/PreStru.py<br>
+* ./logs/model/<br>
+* ./input/input.txt
