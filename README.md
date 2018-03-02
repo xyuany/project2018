@@ -2,8 +2,8 @@
 3 state 2nd structure prediction
 
 # /2n_stru/ introduction
-## /input/ 
-### /input.txt
+* /input/ 
+*  /input.txt
  contain a sequence to test<br>
 ## /script/
 ### ./input.py  
@@ -11,9 +11,9 @@
 ### ./StruPre.py 
  functions to extract data structures, sliding window, and onehotencode.<br>
 ### ./traning_tesing_set.py
- manually split dataset into 5-fold.
-### ./cross
- manually do cross-validation and change parameter 
+ manually split dataset into 5-fold.<br>
+### ./cross_validation.py
+ manually do cross-validation and change parameter <br>
 ## /logs/
  models and arrays produced.
 ### ./model/  
