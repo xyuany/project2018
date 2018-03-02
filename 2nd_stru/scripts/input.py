@@ -24,7 +24,7 @@ def input_structure(inputfile):
 def topo_rev_encode(result_array):
 	encode_table = {1:'C',2:'E',3:'H'}
 	result_list = list(result_array)
-	topo_list = list()
+	topo_list = str()
 	for i in result_list:
 		topo = encode_table[i]
 		topo_list += topo 
@@ -37,6 +37,9 @@ X = sp.input_main(seq,5)
 clf = joblib.load('./logs/model/test_model.sav')
 result = clf.predict(X)
 topo = topo_rev_encode(result)
+f = open('./output/output.txt','w')
+f.write(topo+'\n')
+f.close()
 #print (X)
 #print (Y)
-print (topo)
+#print (str(topo))
