@@ -105,7 +105,7 @@ def topo_encoded(topo_dic,topo_table):
 		#print (topo_dic)
 	return topo_dic
 
-def sliding_window(ID_list, seq_dic, topo_dic, win_size):
+'''def sliding_window(ID_list, seq_dic, topo_dic, win_size):
 	X = list()
 	Y = list()
 	for key in ID_list:
@@ -129,7 +129,7 @@ def sliding_window(ID_list, seq_dic, topo_dic, win_size):
 		#print (X)
 		Y += topo
 	#print (Y)
-	return X,Y
+	return X,Y'''
 
 def seq_sliding_window(ID_list, seq_dic, win_size):
 	X = list()
@@ -236,11 +236,23 @@ def main(seq,topo,win_size):
 	X = np.array(X)
 	return X,Y
 
+#########################################################################
+############This function is only for input query sequences
+############Deal with sample only have sequences information, no topology\
+#########################################################################
+
+
 def input_main(seq,win_size):
 	seq_encode_table = uniq_aa(seq)
 	ID_list = sorted(seq.keys())
 	seq_num = seq_encoded(seq,seq_encode_table)
 	seq_window = seq_sliding_window(ID_list, seq_num, win_size)
+	binary_table = seq_binary_table(seq_encode_table)
+	X = onehotencode(seq_window, binary_table)
+	X = np.array(X)
+	return X
+
+
 #print (X,Y)
 #varify_length(seq,seq_num,topo,topo_num,X)
 '''clf = svm.SVC()
@@ -252,7 +264,7 @@ if __name__ == '__main__':
 	X,Y = main(seq,topo,win_size)
 	#print (X)
 	#print (Y)
-	'''clf = svm.SVC()
+	clf = svm.SVC()
 	clf.fit(X,Y)
-	joblib.dump(clf,'./logs/model/test_model.sav')'''
+	joblib.dump(clf,'./logs/model/test_model.sav')
 	
