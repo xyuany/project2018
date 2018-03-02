@@ -3,8 +3,8 @@ from sklearn import svm
 import sys
 import StruPre as sp
 
-inputfile = sys.argv[1]
-win_size = int(sys.argv[2])
+#inputfile = sys.argv[1]
+#win_size = int(sys.argv[2])
 
 
 
@@ -46,8 +46,8 @@ def train_test_set(test_list,seq_dic,topo_dic,win_size):
 		group_seq = list_dic(test_list[i],seq_dic)
 		group_topo = list_dic(test_list[i],topo_dic)
 		X,Y = sp.main(group_seq,group_topo,win_size)
-		np.savez("./logs/"+str(i+1),seq_data = X, topo_data = Y)
-		#print (X.shape,Y.shape)
+		np.savez("./logs/CV_group_array/"+str(i+1),seq_data = X, topo_data = Y)
+		print (X.shape,Y.shape)
 	
 def list_dic(ID_list,all_dic):
 	ID_dict = dict()

@@ -13,7 +13,7 @@ inputfile = sys.argv[1]
 ####################################################################################
 
 def load(i):
-	load = np.load('./logs/'+str(i)+'.npz')
+	load = np.load('./logs/CV_group_array/'+str(i)+'.npz')
 	seq = load['seq_data']
 	topo = load['topo_data']
 	return seq, topo
