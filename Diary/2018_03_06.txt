@@ -1,0 +1,9 @@
+Aim:
+1. try to figure out whether psi-blast is running.
+2. paper reading about the PSSM
+
+Outcome:
+1. check the file in /logs/pssm and /logs/seq_ali/
+   file numbers are same with sequence numbers.
+2. finish reading the PSSM paper and find the methods to calculate scores.
+
