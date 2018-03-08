@@ -1,0 +1,10 @@
+Aim:
+1. figure out how to run psi-blast and get result.
+	a. if I want to run psi-blast, I should know the input command and parameter used.
+	b. whether psi-blast can run a file containing several sequences, and outputs are seperated files?
+
+Outcome:
+1. psi-blast cannot run and get seperated sequence, so I must split input file.
+2. write code to split psi-blast input sequences(one file) into one sequence one file.
+3. try to run psi-blast with one sequnce file, and try the parameter.
+4. write bash code to run psi-blast iterately.
