@@ -34,7 +34,29 @@ def merge_set(seq_group, topo_group, i, win_size):
 			training_seq = np.append(training_seq,seq_group[group[j]],axis = 0)
 			training_topo = np.append(training_topo, topo_group[group[j]])
 	return training_seq, training_topo
-	
+
+###############################################################
+####This function is to do cross validation
+####The input should contain one model
+####the return is mean of 5-fold cross validation
+#############################################################
+
+def cross_val(seq,topo,model):
+	score_array = np.empty((0,))
+	for i in range(5):
+		test_seq = seq[group[i]]
+		test_topo = topo[group[i]]
+		train_seq,train_topo = merge_set(seq,topo,i,win_size)
+		#print (group[i],test_seq.shape,test_topo.shape)
+		model.fit(train_seq,train_topo)
+		score = model.score(test_seq,test_topo)
+		score_array = np.append(score_array, score)
+		#print (score)
+	mean = score_array.mean()
+	#print (score_array)
+	#print (mean)
+	return mean
+
 
 #####################################################################
 ####################Test part
@@ -68,13 +90,4 @@ for win_size in range(5,7,2):
 		seq[group[i-1]], topo[group[i-1]] = load(i)
 	#for para in para_list:
 	clf = svm.SVC()
-	for i in range(5):
-		test_seq = seq[group[i]]
-		test_topo = topo[group[i]]
-		train_seq,train_topo = merge_set(seq,topo,i,win_size)
-		#print (group[i],test_seq.shape,test_topo.shape)
-		clf.fit(train_seq,train_topo)
-		score = clf.score(test_seq,test_topo)
-		print (score)
-		
-
+	score = cross_val(seq,topo,clf)
