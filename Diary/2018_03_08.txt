@@ -16,3 +16,10 @@ Idea:
 	c. DMK:
 3.optimize my cross-validation code to achieve formal items.
 4.use 12line_test.txt to test the parameter loop.
+
+Outcome: 
+1. integrate the cross-validation function to be easily called when using different model.
+2. For SVM, I want to evaluate different window size, C value = [0.01, 1, 100], different kernal = ['linear','poly','rbg','sigmoid']
+   with cache_size = 3000
+3. For RFC, I want to evaluate different window size, n_estimators = [10,20,30,40,50], min_samples_split =[2,4,6]
+4. For DMT, I want to evaluate different window size, max_features = ["auto", None], min_samples_split = [2,4,6]
