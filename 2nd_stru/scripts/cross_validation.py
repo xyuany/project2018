@@ -82,17 +82,20 @@ for i in range(5):
 	print (group[i],train_seq,train_topo)	
 '''
 
-svmhandle = open ("./output/svm.txt",'w',buffering = 0)
+svmhandle = open ("./output/svm.txt",'w')
 kernal = ['linear','poly','rbf','sigmoid']
 svmhandle.write("win_size\tlinear(C=0.01)\tlinear(C=1)\tlinear(C=100)\tpoly(C=0.01)\tpoly(C=1)\tpoly(C=100)\trbf(C=0.01)\trbf(C=1)\trbf(C=100)\tsigmoid(C=0.01)\tsigmoid(C=1)\tsigmoid(C=100)\t\n")
+svmhandle.flush()
 
-rfchandle = open("./output/rfc.txt",'w',buffering = 0)
+rfchandle = open("./output/rfc.txt",'w')
 rfchandle.write("win_size\testimator=10(mss=2)\testimator=10(mss=4)\testimator=10(mss=6)\testimator=20(mss=2)\testimator=20(mss=4)\testimator=20(mss=6)\testimator=30(mss=2)\testimator=30(mss=4)\testimator=30(mss=6)\testimator=40(mss=2)\testimator=40(mss=4)\testimator=40(mss=6)\testimator=50(mss=2)\testimator=50(mss=4)\testimator=50(mss=6)\t\n")
+rfchandle.flush()
 
-dtchandle = open("./output/dmc.txt",'w',buffering = 0)
+dtchandle = open("./output/dmc.txt",'w')
 dtchandle.write("win_size\tauto(mss=2)\tauto(mss=4)\tauto(mss=6)\tNone(mss=2)\tNone(mss=4)\tNone(mss=6)\t\n")
+dtchandle.flush()
 
-timehandle = open("./output/time.txt",'w', buffering = 0)
+timehandle = open("./output/time.txt",'w')
 
 for win_size in range(5,20,2):
 	tt.main(inputfile, win_size)
@@ -104,39 +107,49 @@ for win_size in range(5,20,2):
 	#for para in para_list:
 	#following is svm_training
 	svmhandle.write(str(win_size)+"\t")
+	svmhandle.flush()
 	for ker in kernal:
 		svm_start = timeit.default_timer()
 		for C in [0.01,1,100]:
 			clf = svm.SVC(C = C, cache_size=2000, kernel = ker)
 			score = cross_val(seq,topo,clf)
 			svmhandle.write(str(score)+"\t")
-			#svmhandle.flush()
+			svmhandle.flush()
 		svm_end = timeit.default_timer()
 		timehandle.write("svm\t"+str(win_size)+"\t"+ker+"\t"+str(svm_end-svm_start)+"\n")
-		#timehandle.flush()
+		timehandle.flush()
 	svmhandle.write("\n")
+	svmhandle.flush()
 	#following is random forest training
 	rfchandle.write(str(win_size)+"\t")
+	rfchandle.flush()
 	for estimator in [10,20,30,40,50]:
 		rf_start = timeit.default_timer()
 		for mss in [2,4,6]:
 			rfc = RandomForestClassifier(n_estimators = estimator, min_samples_split = mss, n_jobs=-1)
 			score = cross_val(seq,topo,rfc)
 			rfchandle.write(str(score)+"\t")
+			rfchandle.flush()
 		rf_end = timeit.default_timer()
 		timehandle.write("rf\t"+str(win_size)+"\t"+str(estimator)+"\t"+str(rf_end-rf_start)+"\n")
+		timehandle.flush()
 	rfchandle.write("\n")
+	rfchandle.flush()
 	#following is decision making trees
 	dtchandle.write(str(win_size)+"\t")
+	dtchandle.flush()
 	for mf in ["auto",None]:
 		dm_start = timeit.default_timer()
 		for mss in [2,4,6]:
 			dtc = DecisionTreeClassifier(max_features = mf, min_samples_split = mss)
 			score = cross_val(seq,topo,dtc)
 			dtchandle.write(str(score)+"\t")
+			dtchandle.flush()
 		dm_end = timeit.default_timer()
 		timehandle.write("dm\t"+str(win_size)+"\t"+str(mf)+"\t"+str(dm_end-dm_start)+"\n")
+		timehandle.flush()
 	dtchandle.write("\n")
+	dtchandle.flush()
 
 svmhandle.close()
 rfchandle.close()
