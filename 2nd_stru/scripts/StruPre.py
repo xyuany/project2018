@@ -202,10 +202,10 @@ def onehotencode(seq_win, binary_table):
 
 
 # main function
-inputfile = sys.argv[1]
-win_size = int(sys.argv[2])
+#inputfile = sys.argv[1]
+#win_size = int(sys.argv[2])
 # build data structure: sequence, topology
-seq, topo = data_stru(inputfile)
+#seq, topo = data_stru(inputfile)
 #print (seq,topo)
 
 def main(seq,topo,win_size):
@@ -264,7 +264,7 @@ if __name__ == '__main__':
 	X,Y = main(seq,topo,win_size)
 	#print (X)
 	#print (Y)
-	clf = svm.SVC()
+	'''clf = svm.SVC()
 	clf.fit(X,Y)
-	joblib.dump(clf,'./logs/model/test_model.sav')
+	joblib.dump(clf,'./logs/model/test_model.sav')'''
 	
