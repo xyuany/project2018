@@ -3,7 +3,8 @@ import sys
 import getopt
 from sklearn import svm
 np.set_printoptions(threshold = np.inf)
-from sklearn.externals import joblib
+#from sklearn.externals import joblib
+import pickle
 
 '''def getcommand(argv):
 	inputfile = ""
@@ -266,5 +267,4 @@ if __name__ == '__main__':
 	#print (Y)
 	'''clf = svm.SVC()
 	clf.fit(X,Y)
-	joblib.dump(clf,'./logs/model/test_model.sav')'''
-	
+	pickle.dump(clf,open('./logs/model/test_model.sav','wb'))'''
