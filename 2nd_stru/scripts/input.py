@@ -3,8 +3,8 @@ from sklearn import svm
 import sys
 import getopt
 import StruPre as sp
-from sklearn.externals import joblib
-
+#from sklearn.externals import joblib
+import pickle
 
 inputfile = sys.argv[1]
 
@@ -33,7 +33,7 @@ def topo_rev_encode(result_array):
 #seq = input_structure(inputfile)
 #topo = dict()
 seq = input_structure(inputfile)
-clf = joblib.load('./logs/model/test_model.sav')
+clf = pickle.load(open('./logs/model/test_model.sav','rb'))
 f = open('./output/output.txt','w')
 for key in seq:
 	seq_input = dict()
