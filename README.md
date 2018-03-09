@@ -1,7 +1,7 @@
 # project2018
 3 state 2nd structure prediction
 
-# /2n_stru/ introduction
+# /2n_stru/ file introduction
 ## /input/ 
 ###  /input.txt
  contain a sequence to test<br>
@@ -15,14 +15,18 @@
 ### ./cross_validation.py
  manually do cross-validation and change parameter <br>
 ## /logs/
- models and arrays produced.
+ models and arrays produced during building the predictor.
 ### ./model/  
- contain the model I have.<br>
+ contain the model I have built.<br>
 ### ./CV_gourp_array
- SVM input array
+ SVM input array. Use in cross-validation
+## /output/
+ contain the output file.
 # usage
 ## command
-* $ python input.py \<input sequence>
+* cd ./2nd_stru/	#to use the predictor successfully, you must in /2nd_stru/ folder
+* #then run 
+* $ python3 ./script/input.py \<input sequence>
 ## mandatary file
 * ./script/input.py<br>
 * ./script/PreStru.py<br>
