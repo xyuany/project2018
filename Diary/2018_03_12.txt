@@ -1,0 +1,12 @@
+Aim:
+1. try to extract pssm information from files.
+2. make pssm and topology information comrresponded.
+3. make sliding window for pssm.
+4. 
+
+
+
+
+Outcome:
+1. extracted pssm from pssm files.
+
