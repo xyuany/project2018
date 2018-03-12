@@ -3,29 +3,29 @@ import numpy as np
 import sys
 import StruPre as sp
 
-#################################################
-#####You can change pssm files' path here
-################################################
-path = "./logs/pssm/"
-file_list = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f))] 
-#print (len(file_list))
-
 
 
 #####################################################################
 ###Extract pssm and normalize it from files
 #####################################################################
 
-def parse_pssm(file_list):
+def parse_pssm():
+#################################################
+#####You can change pssm files' path here
+################################################
+	path = "./logs/pssm/"
+	file_list = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f))] 
+	print (len(file_list))
+	
 	pssm = dict()
-	for f in ['>154l-1-AUTO.1.pssm','>1aazb-1-DOMAK.pssm']:
+	for f in file_list:
 		#print (f)
 		file_array = np.genfromtxt(path+f, skip_header = 3, skip_footer = 5, usecols =range(22,42))
 		file_array = file_array/100
 		#print (file_array.shape)
-		key = f.lstrip('>').rstrip('.pssm')
+		key = f.lstrip('>').rstrip(".pssm")
 		pssm[key] = file_array
-		#print (pssm)
+	print (sorted(pssm.keys()))
 	return pssm
 
 
@@ -56,13 +56,13 @@ def pssm_window(ID_list, pssm_array,win_size):
 			#print (win_array.shape)
 		#print (X.shape)
 	return X	
-
+'''
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
-pssm = parse_pssm(file_list)
+pssm = parse_pssm()
 #print (pssm)
 seq, topo = sp.data_stru(inputfile)
-
+'''
 
 def main(pssm,topo,win_size):
 	ID_list = sorted(pssm.keys())
