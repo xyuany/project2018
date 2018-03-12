@@ -1,12 +1,15 @@
 Aim:
 1. try to extract pssm information from files.
-2. make pssm and topology information comrresponded.
+2. make pssm and topology information corresponded.
 3. make sliding window for pssm.
-4. 
+4. revise the training_testing.py and cross_validation.py for pssm
 
 
 
 
 Outcome:
 1. extracted pssm from pssm files.
-
+2. make pssm and topolopy information corresponded
+3. achieve sliding_window for pssm and topology
+	return to X,Y
+4. 
