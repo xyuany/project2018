@@ -12,4 +12,8 @@ Outcome:
 2. make pssm and topolopy information corresponded
 3. achieve sliding_window for pssm and topology
 	return to X,Y
-4. 
+4. **********training and testing set are not divided successfully.
+
+Question:
+1. why when I use rstrip(".pssm") it will strip one more character!!!!!!!!!!!!
+Fuck!!
