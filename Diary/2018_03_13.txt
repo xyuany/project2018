@@ -16,4 +16,10 @@ Aim:
 Outcome:
 1.  a. split the input.txt and get psi-blast result of input.
 	b. get result of input and write input_pssm.py for pssm.
-
+2. draft to run input_pssm. 
+	******Remember: test when final model is built
+	!!!!!!!have finished input_pssm.py
+3. running psi-blast with 50 other testing protein sequences.
+4. finish pssm_model training and have found best parameter
+5. a. finishing saving the best pssm model
+	b. 
