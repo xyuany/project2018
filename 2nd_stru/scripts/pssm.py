@@ -2,7 +2,8 @@ import os
 import numpy as np
 import sys
 import StruPre as sp
-
+from sklearn import svm
+import pickle
 
 
 #####################################################################
@@ -15,17 +16,16 @@ def parse_pssm():
 ################################################
 	path = "./logs/pssm/"
 	file_list = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f))] 
-	print (len(file_list))
-	
+	#print (len(file_list))
 	pssm = dict()
 	for f in file_list:
 		#print (f)
 		file_array = np.genfromtxt(path+f, skip_header = 3, skip_footer = 5, usecols =range(22,42))
 		file_array = file_array/100
 		#print (file_array.shape)
-		key = f.lstrip('>').rstrip(".pssm")
+		key = f.lstrip('>').rstrip('pssm').rstrip('.')
 		pssm[key] = file_array
-	print (sorted(pssm.keys()))
+	#print (sorted(pssm.keys()))
 	return pssm
 
 
@@ -55,7 +55,13 @@ def pssm_window(ID_list, pssm_array,win_size):
 			X = np.append(X, win_array, axis = 0)
 			#print (win_array.shape)
 		#print (X.shape)
-	return X	
+	return X
+
+###########################################################
+####If you want to run this script seperately 
+####Delete the comment
+####In other cases, you should comment following hard code 
+###########################################################
 '''
 inputfile = sys.argv[1]
 win_size = int(sys.argv[2])
@@ -74,7 +80,16 @@ def main(pssm,topo,win_size):
 	#print (Y.shape)
 	return X,Y
 
-if __name__ == '__main__':
-	main(pssm,topo,win_size)
-	
 
+def fit_model(X,Y):
+	clf = svm.SVC(C = 100, kernel = 'rbf',cache_size = 2000)
+	clf.fit(X,Y)
+	pickle.dump(clf,open('./logs/model_pssm/pssm_model.sav','wb'))
+	print ('Done')
+
+if __name__ == '__main__':
+	X,Y = main(pssm,topo,win_size)
+	#################################
+	####Delete # if want to save model
+	#################################
+	#fit_model(X,Y)
