@@ -1,0 +1,19 @@
+Aim:
+1. finish training pssm_model and get best result.
+2. ***build final model for single sequences, and save it in /logs/model.
+	hint: change code and parameter in PreStru.py
+   ***build final model for multiple sequences, and save it in /logs/model.
+   hint: change code and parameter in pssm.py
+3. finish building RandomForest and DesitionMaking tree of single sequence and Save result in /output/CV/
+	****hint: change window_size, writehandle and load(i) function
+4. write a script for scoring 50 other protein
+	****hint: must finish final model of single sequence and multiple sequences before, just load the best model
+5. write input for pssm.
+	****hint: input format must be single sequence pssm format, load_model, reverse_encoding.
+
+
+
+Outcome:
+1.  a. split the input.txt and get psi-blast result of input.
+	b. get result of input and write input_pssm.py for pssm.
+
