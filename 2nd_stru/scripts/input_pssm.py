@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn import svm
+import os
 import sys
 import pssm as pm
 import pickle
@@ -44,17 +45,17 @@ def topo_rev_encode(result_array):
 ################################################################
 
 pssm = parse_input(path)
-clf = pickle.load(open('./logs/model_pssm/test_model.sav','rb'))
+clf = pickle.load(open('./logs/model_pssm/pssm_model.sav','rb'))
 f = open('./output/output_pssm.txt','w')
 for key in pssm:
 	pssm_input = dict()
 	pssm_input[key] = pssm[key]
 	ID_list = sorted(pssm_input.keys())
-	X = pm.pssm_window(ID_list, pssm_input,win_size)
+	X = pm.pssm_window(ID_list, pssm_input,17)
 	result = clf.predict(X)
 	topo = topo_rev_encode(result)
 	f.write('>'+key+'\n')
-	f.write(seq[key]+'\n')
+	#f.write(seq[key]+'\n')
 	f.write(topo+'\n')
 
 f.close()
