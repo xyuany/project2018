@@ -5,12 +5,12 @@
 ```Bash
 cd ./2nd_stru/	//Bash
 ```
-	* to use the predictor successfully, you must in /2nd_stru/ folder
+* to use the predictor successfully, you must in /2nd_stru/ folder
 * If you want to run model built by sequence information.
-'''Bash
+```Bash
  python3 ./script/input_seq.py \<./input/input.txt> //Bash
 ```
-	* You can change your own test file path in \<input sequence file>
+* You can change your own test file path in \<input sequence file>
 * If you want to run model built by pssm.
 ```Bash
 python3 ./script/input_pssm.py \<./input/pssm/> //Bash
