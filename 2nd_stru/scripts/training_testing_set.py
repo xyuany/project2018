@@ -4,8 +4,8 @@ import sys
 import StruPre as sp
 import pssm as pm
 
-inputfile = sys.argv[1]
-win_size = int(sys.argv[2])
+#inputfile = sys.argv[1]
+#win_size = int(sys.argv[2])
 
 
 
@@ -64,8 +64,8 @@ def pssm_train_test_set(test_list,pssm_dic,topo_dic,win_size):
 		group_pssm = list_dic(test_list[i],pssm_dic)
 		group_topo = list_dic(test_list[i],topo_dic)
 		X,Y = pm.main(group_pssm,group_topo,win_size)
-		#np.savez("./logs/CV_pssm_array/"+str(i+1),seq_data = X, topo_data = Y)
-		print (X.shape,Y.shape)
+		np.savez("./logs/CV_pssm_array/"+str(i+1),seq_data = X, topo_data = Y)
+		#print (X.shape,Y.shape)
 
 
 def main(inputfile,win_size):
@@ -74,15 +74,15 @@ def main(inputfile,win_size):
 	interval = length//5
 	ID_list = sorted(seq.keys())
 	test_group = test_set(ID_list,interval)
-	train_test_set(test_group,seq,topo,win_size)	
+	train_test_set(test_group,seq,topo,win_size)
 
-def pssm_main(inputfile,winsize):
+def pssm_main(inputfile,win_size):
 	seq, topo = sp.data_stru(inputfile)
 	pssm = pm.parse_pssm()
-	if topo.keys() == pssm.keys():
-		print (True)
-	else:
-		print (topo.keys()-pssm.keys())
+	#if topo.keys() == pssm.keys():
+		#print (True)
+	#else:
+		#print (topo.keys()-pssm.keys())
 	#print (pssm)
 	length = len(pssm)
 	interval = length//5

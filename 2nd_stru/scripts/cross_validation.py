@@ -17,8 +17,10 @@ inputfile = sys.argv[1]
 
 def load(i):
 	load = np.load('./logs/CV_group_array/'+str(i)+'.npz')
+	#load = np.load('./logs/CV_pssm_array/'+str(i)+'.npz')
 	seq = load['seq_data']
 	topo = load['topo_data']
+	#print (seq.shape,topo.shape)
 	return seq, topo
 
 #####################################################################
@@ -97,8 +99,11 @@ dtchandle.flush()
 
 timehandle = open("./output/time.txt",'w')
 
-for win_size in range(5,20,2):
+for win_size in range(21,23,2):
+	# If you want to use sequence information to do cross validation, delete the #
 	tt.main(inputfile, win_size)
+	# If you want to use pssm information to do cross validation,delete the #
+	#tt.pssm_main(inputfile,win_size)
 	seq = dict()
 	topo = dict()
 	group =['G1','G2','G3','G4','G5']
