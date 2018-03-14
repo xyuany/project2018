@@ -44,6 +44,7 @@ def data_stru(inputfile):
 		elif count == 2:
 			topo_stru[key] = line
 			count == 0
+			#print (key, len(line))
 	inputhandle.close()
 	return seq_stru,topo_stru
 	
@@ -62,7 +63,7 @@ def uniq_aa(seq_stru):
 		encode +=1
 		seq_encode[i] = encode
 	#print (seq_encode)
-	return (seq_encode)		
+	return (seq_encode)
 
 def uniq_topo(topo_stru):
 	a = set()
@@ -228,13 +229,14 @@ def main(seq,topo,win_size):
 	Y = topo_sliding_window(ID_list, topo_num)
 #seq_window = np.array(X)
 	#Y = np.array(Y)
-#print (seq_window,Y)
+	#print (seq_window,Y)
 ######building one hot encode table '
 	binary_table = seq_binary_table(seq_encode_table)
 #print (binary_table)
 ######transform numerical number into 20 binary code'
 	X = onehotencode(seq_window, binary_table)
 	X = np.array(X)
+	#print (X.shape,Y.shape)
 	return X,Y
 
 #########################################################################
@@ -261,10 +263,15 @@ clf.fit(X,Y)
 score = clf.score(X,Y)
 print (score)
 '''
+
+def model_fit(X,Y):
+	clf = svm.SVC(C = 100, kernel = 'rbf',cache_size = 2000)
+	clf.fit(X,Y)
+	pickle.dump(clf,open('./logs/model_seq/seq_model.sav','wb'))
+	print ('Done')
+
 if __name__ == '__main__':
 	X,Y = main(seq,topo,win_size)
 	#print (X)
 	#print (Y)
-	'''clf = svm.SVC()
-	clf.fit(X,Y)
-	pickle.dump(clf,open('./logs/model/test_model.sav','wb'))'''
+	#model_fit(X,Y)
