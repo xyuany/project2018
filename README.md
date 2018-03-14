@@ -1,5 +1,45 @@
 # project2018
-3 state 2nd structure prediction
+ This repository is to predict 3 state 2nd structure of a protein.
+# usage:
+## command
+```Bash
+cd ./2nd_stru/	//Bash
+```
+	* to use the predictor successfully, you must in /2nd_stru/ folder
+* If you want to run model built by sequence information.
+'''Bash
+ python3 ./script/input_seq.py \<./input/input.txt> //Bash
+```
+	* You can change your own test file path in \<input sequence file>
+* If you want to run model built by pssm.
+```Bash
+python3 ./script/input_pssm.py \<./input/pssm/> //Bash
+```
+	* You can change your own pssm path in \<input pssm folder>, path folder must end with '/'
+	* The pssm filename must starts with '>' and end with '.pssm'. For example: \>1hnf-1-AS.pssm
+
+## mandatary file
+* ./input/
+* ./logs/model_pssm/<br>
+* ./logs/model_seq/<br>
+* ./script/<br>
+* ./output/
+
+## Output
+* Output is in /2nd_stru/output/
+* output.txt
+	* Prediction by sequence model.
+	* Format: 3line.
+		* First line: >ID
+		* Second line: amino acid sequences
+		* Third line: Topology sequences
+* output_pssm.txt
+	* Prediction by pssm model.
+	* Format: 2line
+		* First line: >ID
+		* Second line: Topology sequences
+	* You can conbine your sequences and predicted topology on your own.
+
 
 # /2n_stru/ file introduction
 ## /input/ 
@@ -22,13 +62,4 @@
  SVM input array. Use in cross-validation
 ## /output/
  contain the output file.
-# usage
-## command
-* cd ./2nd_stru/	#to use the predictor successfully, you must in /2nd_stru/ folder
-* #then run 
-* $ python3 ./script/input.py \<input sequence>
-## mandatary file
-* ./script/input.py<br>
-* ./script/PreStru.py<br>
-* ./logs/model/<br>
-* ./input/input.txt
+
