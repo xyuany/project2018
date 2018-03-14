@@ -6,28 +6,10 @@ np.set_printoptions(threshold = np.inf)
 #from sklearn.externals import joblib
 import pickle
 
-'''def getcommand(argv):
-	inputfile = ""
-	outputfile = ""
-	try:
-		#parce of command line, h-help, i:-input, change following if add 
-		opts, args = getopt.getopt(argv,"hi:")	
-	except getopt.GetoptError:
-		print ("StruPre.py -i <inputfile>")
-		sys.exit(2)
-	for opt, arg in opts:
-		if opt == '-h':
-			print ('test.py -i <inputfile>')
-			sys.exit()
-		elif opt == '-i':
-			inputfile = arg
-	return inputfile
-
-inputfile = getcommand(sys.argv[1:])
-print (inputfile)'''
-
-
-
+#########################################################
+####Structure the 3 line fasta file
+####Return 2 dictionaries seq and topo
+#########################################################
 
 def data_stru(inputfile):
 	inputhandle = open(inputfile, 'r')
@@ -47,6 +29,11 @@ def data_stru(inputfile):
 			#print (key, len(line))
 	inputhandle.close()
 	return seq_stru,topo_stru
+
+############################################################
+#####Encode 20 amino acid into number
+#####Return to a dictionary. = sequence encode table
+############################################################
 	
 def uniq_aa(seq_stru):
 	b = set()
@@ -65,6 +52,11 @@ def uniq_aa(seq_stru):
 	#print (seq_encode)
 	return (seq_encode)
 
+############################################################
+####Encode 3 state topology Character into number
+####Return to a dict. = topology encode table
+############################################################
+
 def uniq_topo(topo_stru):
 	a = set()
 	topo_encode = dict()
@@ -81,6 +73,12 @@ def uniq_topo(topo_stru):
 	#print (topo_encode)
 	return (topo_encode)
 
+##############################################
+#####encode sequence charater into number with encoding table
+#####return a dict. key = ID_list, dict[key] = list of aa number
+###############################################
+
+
 def seq_encoded(seq_dic,seq_table):
 	# iterate each sequence
 	for key in seq_dic:
@@ -94,6 +92,11 @@ def seq_encoded(seq_dic,seq_table):
 		seq_dic[key] = seq_encoded
 		#print(seq_dic)
 	return seq_dic
+
+##############################################
+#####encode topo charater into number with encoding table
+#####return a dict. key = ID_list, dict[key] = list of topo number
+###############################################
 
 def topo_encoded(topo_dic,topo_table):
 	#iterate each sequence
@@ -133,6 +136,12 @@ def topo_encoded(topo_dic,topo_table):
 	#print (Y)
 	return X,Y'''
 
+######################################################
+####Build sliding window for sequence.
+####use ID_list to make seq dict have ordered keys 
+####Return svm input 2D array
+######################################################
+
 def seq_sliding_window(ID_list, seq_dic, win_size):
 	X = list()
 	#Y = list()
@@ -159,6 +168,11 @@ def seq_sliding_window(ID_list, seq_dic, win_size):
 	#print (Y)
 	return X
 
+######################################################
+####Build sliding window for topology, actually topo does't need
+####use ID_list to make topo dict have ordered keys with sequence
+####Return svm input 1D array
+######################################################
 
 def topo_sliding_window(ID_list,topo_dic):
 	Y = list()
@@ -168,16 +182,10 @@ def topo_sliding_window(ID_list,topo_dic):
 	Y = np.array(Y)
 	return Y
 
-def varify_length(seq,seq_num,topo,topo_num,X):
-	seq_len, seq_num_len, topo_len, topo_num_len,X_len = 0,0,0,0,0
-	for key in seq:
-		seq_len += len(seq[key])
-		seq_num_len += len(seq_num[key])
-		topo_len += len(topo[key])
-		topo_num_len += len(topo_num[key])
-		print (seq_len,seq_num_len,topo_len,topo_num_len)
-	X_len = len(X)
-	print (X_len)
+#############################################################
+#### Build binary encode table, to encode number into 20 digit binary 
+#### Return to a dict
+#############################################################
 
 def seq_binary_table(seq_table):
 	binary = np.eye(20)
@@ -187,6 +195,11 @@ def seq_binary_table(seq_table):
 	seq_binary_table[0] = list(np.zeros((20)))
 	#print (seq_binary_table)
 	return seq_binary_table
+
+##############################################################
+#### Encode input array into binary, input seq information is array/list
+#### output list of 20*win_size 
+###############################################################
 
 def onehotencode(seq_win, binary_table):
 	#print (len(X))
@@ -203,37 +216,31 @@ def onehotencode(seq_win, binary_table):
 	return X
 
 
-# main function
-#inputfile = sys.argv[1]
-#win_size = int(sys.argv[2])
-# build data structure: sequence, topology
-#seq, topo = data_stru(inputfile)
-#print (seq,topo)
 
 def main(seq,topo,win_size):
 ######build numerical encode table'
 	seq_encode_table = uniq_aa(seq)
 	topo_encode_table = uniq_topo(topo)
 #print (seq_encode_table,topo_encode_table)
-#####sorted the input ID
+#	sorted the input ID
 	ID_list = sorted(seq.keys())
-#######encode sequences into number'
+#	encode sequences into number'
 	seq_num = seq_encoded(seq,seq_encode_table)
 	topo_num = topo_encoded(topo,topo_encode_table)
 
 #print (seq_num,topo_num)
-#####building sliding window due to sorted ID_list
-#####So the sequences order is same 
+#	building sliding window due to sorted ID_list
+#	So the sequences order is same 
 	#seq_window,Y = sliding_window(ID_list, seq_num, topo_num, win_size)
 	seq_window = seq_sliding_window(ID_list, seq_num, win_size)
 	Y = topo_sliding_window(ID_list, topo_num)
 #seq_window = np.array(X)
 	#Y = np.array(Y)
 	#print (seq_window,Y)
-######building one hot encode table '
+#	building one hot encode table '
 	binary_table = seq_binary_table(seq_encode_table)
 #print (binary_table)
-######transform numerical number into 20 binary code'
+#	transform numerical number into 20 binary code'
 	X = onehotencode(seq_window, binary_table)
 	X = np.array(X)
 	#print (X.shape,Y.shape)
@@ -255,20 +262,24 @@ def input_main(seq,win_size):
 	X = np.array(X)
 	return X
 
-
-#print (X,Y)
-#varify_length(seq,seq_num,topo,topo_num,X)
-'''clf = svm.SVC()
-clf.fit(X,Y)
-score = clf.score(X,Y)
-print (score)
-'''
+#########################################################################
+#### This is to build model, always commented
+#########################################################################
 
 def model_fit(X,Y):
 	clf = svm.SVC(C = 100, kernel = 'rbf',cache_size = 2000)
 	clf.fit(X,Y)
 	pickle.dump(clf,open('./logs/model_seq/seq_model.sav','wb'))
 	print ('Done')
+
+###########################################################################
+#### If you want to run this script independantly, cancel comment of following sentences
+###########################################################################
+
+
+#inputfile = sys.argv[1]
+#win_size = int(sys.argv[2])
+#seq, topo = data_stru(inputfile)
 
 if __name__ == '__main__':
 	X,Y = main(seq,topo,win_size)
