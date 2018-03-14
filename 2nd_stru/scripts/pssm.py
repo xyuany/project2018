@@ -11,9 +11,9 @@ import pickle
 #####################################################################
 
 def parse_pssm():
-#################################################
-#####You can change pssm files' path here
-################################################
+#####################################################################
+#####You can change pssm files' path here if you have different pssm folder to parse
+####################################################################
 	path = "./logs/pssm/"
 	file_list = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f))] 
 	#print (len(file_list))
