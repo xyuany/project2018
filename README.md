@@ -1,20 +1,22 @@
 # project2018
+============================================
  This repository is to predict 3 state 2nd structure of a protein.
 # usage:
+=================================================
 ## command
 ```Bash
 cd ./2nd_stru/	//Bash
 ```
-* to use the predictor successfully, you must in /2nd_stru/ folder
+* to use the predictor successfully, you must in ***/2nd_stru/*** folder
 * If you want to run model built by sequence information.
 ```Bash
  python3 ./script/input_seq.py ./input/input.txt //Bash
 ```
 * Attention:
-	* You can change your own test file path in <input sequence file>
+	* You can change your own test file path in \<input sequence file>
 * If you want to run model built by pssm.
 ```Bash
-python3 ./script/input_pssm.py \<./input/pssm/> //Bash
+python3 ./script/input_pssm.py ./input/pssm/ //Bash
 ```
 * Attention:
 	* You can change your own pssm path in \<input pssm folder>, path folder must end with '/'
@@ -28,14 +30,14 @@ python3 ./script/input_pssm.py \<./input/pssm/> //Bash
 * ./output/
 
 ## Output
-* Output is in /2nd_stru/output/
-* output.txt
+* Output is in ***/2nd_stru/output/***
+* *./output.txt*
 	* Prediction by sequence model.
 	* Format: 3line.
 		* First line: >ID
 		* Second line: amino acid sequences
 		* Third line: Topology sequences
-* output_pssm.txt
+* *./output_pssm.txt*
 	* Prediction by pssm model.
 	* Format: 2line
 		* First line: >ID
