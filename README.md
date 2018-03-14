@@ -1,7 +1,10 @@
-#project2018
+# project2018
+------------------------------------------------------------
 This repository is to predict 3 state 2nd structure of a protein.
-#usage:
-##command
+# usage:
+--------------------------------------------------------------
+## command
+--------------------------------------------------------
 ```Bash
 cd ./2nd_stru/	#Bash
 ```
@@ -20,14 +23,14 @@ python3 ./script/input_pssm.py ./input/pssm/ #Bash
 	* You can change your own pssm path in **\<input pssm folder>**, path folder must end with '/'
 	* The pssm filename must starts with '>' and end with '.pssm'. For example: \>1hnf-1-AS.pssm
 
-##mandatary file
+## mandatary file
 * ./input/
 * ./logs/model_pssm/<br>
 * ./logs/model_seq/<br>
 * ./script/<br>
 * ./output/
 
-##Output
+## Output
 * Output is in ***/2nd_stru/output/***
 * ***./output.txt***
 	* Prediction by sequence model.
