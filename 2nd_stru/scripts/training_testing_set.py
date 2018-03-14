@@ -4,10 +4,6 @@ import sys
 import StruPre as sp
 import pssm as pm
 
-#inputfile = sys.argv[1]
-#win_size = int(sys.argv[2])
-
-
 
 # build 5-fold cross validation 
 #print (length, interval)
@@ -18,8 +14,8 @@ import pssm as pm
 ''' get different testing ID of 5-fold cross validation'''
 
 ###########################################################################
-##########This function is to seperate whole dataset into 5 parts
-###########Group[i] is test_set[i], and it has order
+####  This function is to seperate whole dataset into 5 parts
+####   Group[i] is test_set[i], and it has order
 ###########################################################################
 def test_set(ID_list,interval):
 	test_set = list()
@@ -34,9 +30,9 @@ def test_set(ID_list,interval):
 	return test_set
 
 #############################################################################
-###########This function is to get seq_dictionary and topo_dictionary in each group
-############Use main() in 'StruPre.py' to convert into binary array and save in 'i.npz'
-############ main() will sort keys of input dictionary and return have fixed order
+####  This function is to get seq_dictionary and topo_dictionary in each group
+####   Use main() in 'StruPre.py' to convert into binary array and save in 'i.npz'
+####     main() will sort keys of input dictionary and return have fixed order
 ##################################################################################
 
 
@@ -49,13 +45,27 @@ def train_test_set(test_list,seq_dic,topo_dic,win_size):
 		X,Y = sp.main(group_seq,group_topo,win_size)
 		np.savez("./logs/CV_group_array/"+str(i+1),seq_data = X, topo_data = Y)
 		#print (X.shape,Y.shape)
-	
+
+
+##############################################################################	
+####  if you only have parts of keys of you whole dataset in a list
+####   this function extract values of parts of keys from whole dict
+##############################################################################
+ 
 def list_dic(ID_list,all_dic):
 	ID_dict = dict()
 	for i in ID_list:
 		#print (i)
 		ID_dict[i] = all_dic[i]
 	return ID_dict
+
+#############################################################################
+####  This function is to get pssm_dictionary and topo_dictionary in each group
+####   Use main() in 'pssm.py' to convert into binary array and save in 'i.npz'
+####     differences between formal and following function: X,Y are converted by different main() function
+####		Save pssm array in a different folder
+##################################################################################
+
 
 def pssm_train_test_set(test_list,pssm_dic,topo_dic,win_size):
 	#train_list = list (set(ID_list) - set(test_list))
@@ -67,6 +77,10 @@ def pssm_train_test_set(test_list,pssm_dic,topo_dic,win_size):
 		np.savez("./logs/CV_pssm_array/"+str(i+1),seq_data = X, topo_data = Y)
 		#print (X.shape,Y.shape)
 
+############################################################################
+#### Main function to seperate 5 fold sequence input
+############################################################################
+
 
 def main(inputfile,win_size):
 	seq, topo = sp.data_stru(inputfile)
@@ -75,6 +89,10 @@ def main(inputfile,win_size):
 	ID_list = sorted(seq.keys())
 	test_group = test_set(ID_list,interval)
 	train_test_set(test_group,seq,topo,win_size)
+
+############################################################################
+#### Main function to seperate 5 fold pssm input
+############################################################################
 
 def pssm_main(inputfile,win_size):
 	seq, topo = sp.data_stru(inputfile)
@@ -90,7 +108,15 @@ def pssm_main(inputfile,win_size):
 	test_group = test_set(ID_list,interval)
 	pssm_train_test_set(test_group,pssm,topo,win_size)
 
+###################################################################
+####  If you want to run this file individually, delete comment following
+####################################################################
+
+#inputfile = sys.argv[1]
+#win_size = int(sys.argv[2])
+
+
 if __name__ == '__main__':
-	#main(inputfile, win_size)
-	pssm_main(inputfile, win_size)
+	main(inputfile, win_size)
+	#pssm_main(inputfile, win_size)
 #print (test_set)
