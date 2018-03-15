@@ -1,0 +1,10 @@
+Aim:
+1. finish 50 other protein seq_model and pssm_model
+2. improve readme.md
+3. add comment on current script.
+
+Outcome:
+1.finish running 50 other protein seq_model and pssm_model
+2. improve readme.md
+3. finish comment on current script
+ 
