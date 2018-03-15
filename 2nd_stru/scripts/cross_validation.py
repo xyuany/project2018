@@ -5,6 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 import sys
 import StruPre as sp
 import training_testing_set as tt
+from sklearn.metrics import precision_recall_fscore_support
 import timeit
 
 inputfile = sys.argv[1]
@@ -47,20 +48,44 @@ def merge_set(seq_group, topo_group, i, win_size):
 #############################################################
 
 def cross_val(seq,topo,model):
-	score_array = np.empty((0,))
+	#score_array = np.empty((0,))
+	P,R,F,S = np.empty((0,3)),np.empty((0,3)),np.empty((0,3)),np.empty((0,3))
 	for i in range(5):
 		test_seq = seq[group[i]]
 		test_topo = topo[group[i]]
 		train_seq,train_topo = merge_set(seq,topo,i,win_size)
 		#print (group[i],test_seq.shape,test_topo.shape)
 		model.fit(train_seq,train_topo)
-		score = model.score(test_seq,test_topo)
-		score_array = np.append(score_array, score)
+		##########################################################
+		####  Following is for score(accuracy)
+		#########################################################
+		#score = model.score(test_seq,test_topo)
+		#score_array = np.append(score_array, score)
 		#print (score)
-	mean = np.average(score_array)
+	#mean = np.average(score_array)
 	#print (score_array)
 	#print (mean)
-	return mean
+	#return mean
+	###############################################################
+		########################################################
+		#### following is for precision,recall .........
+		#########################################################
+		test_pred = model.predict(test_seq)
+		precision, recall,f1,support = precision_recall_fscore_support(test_topo,test_pred)
+		precision = precision.reshape(1,3)
+		recall = recall.reshape(1,3)
+		f1 = f1.reshape(1,3)
+		support = support.reshape(1,3)
+		P = np.append(P,precision,axis = 0)
+		R = np.append(R,recall,axis = 0)
+		F = np.append(F,f1,axis = 0)
+		S = np.append(S,support,axis =0)
+		#print (P.shape,R.shape,F.shape,S.shape)
+	P = np.average(P,axis = 0)
+	R = np.average(R,axis = 0)
+	F = np.average(F,axis = 0)
+	S = np.average(S,axis = 0)
+	return P,R,F,S
 
 
 #####################################################################
@@ -83,7 +108,7 @@ for i in range(5):
 	print (group[i],test_seq,test_topo)
 	print (group[i],train_seq,train_topo)	
 '''
-
+'''
 svmhandle = open ("./output/svm.txt",'w')
 kernal = ['linear','poly','rbf','sigmoid']
 svmhandle.write("win_size\tlinear(C=0.01)\tlinear(C=1)\tlinear(C=100)\tpoly(C=0.01)\tpoly(C=1)\tpoly(C=100)\trbf(C=0.01)\trbf(C=1)\trbf(C=100)\tsigmoid(C=0.01)\tsigmoid(C=1)\tsigmoid(C=100)\t\n")
@@ -98,8 +123,10 @@ dtchandle.write("win_size\tauto(mss=2)\tauto(mss=4)\tauto(mss=6)\tNone(mss=2)\tN
 dtchandle.flush()
 
 timehandle = open("./output/time.txt",'w')
+'''
+svmhandle = open ("./output/svm.txt",'wb')
 
-for win_size in range(21,23,2):
+for win_size in range(17,23,2):
 	# If you want to use sequence information to do cross validation, delete the #
 	tt.main(inputfile, win_size)
 	# If you want to use pssm information to do cross validation,delete the #
@@ -111,6 +138,7 @@ for win_size in range(21,23,2):
 		seq[group[i-1]], topo[group[i-1]] = load(i)
 	#for para in para_list:
 	#following is svm_training
+	'''
 	svmhandle.write(str(win_size)+"\t")
 	svmhandle.flush()
 	for ker in kernal:
@@ -155,8 +183,15 @@ for win_size in range(21,23,2):
 		timehandle.flush()
 	dtchandle.write("\n")
 	dtchandle.flush()
+	'''
+	clf = svm.SVC(C = 100, cache_size=2000, kernel = 'rbf')
+	P,R,F,S = cross_val(seq,topo,clf)
+	#print (P.shape,R.shape,F.shape,S.shape)
+	#svmhandle.write(str(win_size)+'\n')
+	#svmhandle.write('1\t2\t3\t')
+	np.savetxt(svmhandle,(P,R,F,S),delimiter='\t')
 
 svmhandle.close()
-rfchandle.close()
-dtchandle.close()
-timehandle.close()
+#rfchandle.close()
+#dtchandle.close()
+#timehandle.close()
