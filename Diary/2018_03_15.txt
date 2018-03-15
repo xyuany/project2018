@@ -1,0 +1,7 @@
+Aim:
+1. re coding cross_validation.py to add precision_recall_f1_support function
+2. debug and write formal result in txt file
+3. start writing report
+
+Outcome:
+1. finish first 2 aim.
